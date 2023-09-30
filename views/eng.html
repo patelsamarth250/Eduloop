@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Courses</title>
+    <!-- <scripst src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+
+
+    <style>
+        body{
+            /* background-image: linear-gradient(#4d8fb5, #8e4fa9); */
+            background-color: #1e9c99;
+            
+            color: white;
+
+        }
+        nav{
+            background-color: #c0f2f3;
+
+            /* background-color:rgb(67, 121, 165); */
+        }
+        /* STYLING FOR SIDEBAR */
+
+        .sidebar {
+
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.35);
+            /* position: fixed; */
+            top: 90px;
+            height: 100%;
+            overflow: auto;
+        }
+ 
+        /* Sidebar links */
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .sidebar h5{
+            font-weight: bolder;
+            background-color: rgba(15, 184, 65, 0.75);
+            padding: 15px;
+            border-radius: 15px;
+        }
+        /* Active/current link */
+        .sidebar a.active {
+            background-color: rgba(0, 48, 103, 0.55);
+            color: white;
+        }
+
+        /* Links on mouse-over */
+        .sidebar a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+        div.content {
+            margin-left: 200px;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+
+        /* On screens that are less than 700px wide, make the sidebar into a topbar */
+        @media screen and (max-width: 700px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar a {
+                float: left;
+            }
+
+            div.content {
+                margin-left: 0;
+            }
+        }
+
+        /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }
+
+        .content {
+            position: relative;
+
+        }
+    </style>
+</head>
+
+<body ng-app="eng_app" ng-controller="eng_controller">
+<div class="m-2">
+    <div class="whole m-1">
+        <!-- nav bar -->
+        <div class="nav_top">
+            <nav class="navbar navbar-expand-sm mb-3" style="border-radius: 5px;">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"><img src="EL_logo2.png" alt="" height="60px"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bss-target="#navbarScroll"
+                        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarScroll">
+                        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/sign_up">SignUp</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="logout">LOGOUT</a>
+                            </li>
+                  
+                        </ul>
+                        <!-- <form class="d-flex" role="search">
+                            <input class="form-control me-2" id="srch" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn search_btn btn-outline-success" type="submit">Search</button>
+                        </form> -->
+                    </div>
+                </div>
+            </nav>
+              
+        </div>
+
+        <div class="main row">
+
+            <!-- The sidebar -->
+            <div class="col-sm-4 sidebar">
+
+                <!-- to make any button active in sideBar add a class active in li tags -->
+
+                <!--<a class="btn active" role="button" ng-click="change_to_main('engineering')"  aria-expanded="false">Engineering</a>-->
+                <a role="button" ng-click="change_to_main('engineering')" aria-expanded="false">
+                    <h5 align="center">Engineering</h5>
+                </a>
+                <a class="btn active" role="button" href="#physics" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="physics">Physics</a>
+                <!-- Names for options of subjects -->
+                <div>
+
+                    <ul class="collapse" id="physics">
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_phy('phy1')">Kinematics</button> </li>
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_phy('phy2')">Rotational</button> </li>
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_phy('phy3')">friction</button> </li>
+                    </ul>
+                </div>
+
+                <a class="btn active" role="button" href="#maths" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="maths">Maths</a>
+
+                <div>
+                    <ul class="collapse" id="maths">
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_maths('maths1')">hell2</button> </li>
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1 "
+                                ng-click="change_maths('maths2')">hell2</button> </li>
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1 "
+                                ng-click="change_maths('maths2')">hell2</button> </li>
+                    </ul>
+                </div>
+
+
+                <a class="btn active" role="button" href="#cpp" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="cpp">C++</a>
+
+                <div>
+                    <ul class="collapse" id="cpp">
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_cpp('cpp1')">hell3</button> </li>
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_cpp('cpp2')">hell3</button> </li>
+                        <li class="list-group-item"> <button class="btn btn-outline-info px-3 mx-3 my-1  py-1"
+                                ng-click="change_cpp('cpp3')">hell3</button> </li>
+                    </ul>
+                </div>
+
+
+                <a class="btn active" role="button" href="#java" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="java">JAVA</a>
+
+                <div>
+                    <ul class="collapse" id="java">
+                        <li class="list-group-item"> <button
+                                class="btn btn-outline-info px-3 mx-3 my-1  py-1">hell4</button> </li>
+                        <li class="list-group-item"> <button
+                                class="btn btn-outline-info px-3 mx-3 my-1  py-1">hell4</button> </li>
+                        <li class="list-group-item"> <button
+                                class="btn btn-outline-info px-3 mx-3 my-1  py-1">hell4</button> </li>
+                    </ul>
+                </div>
+
+
+                <a class="btn active" role="button" href="#dsa" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="dsa">DSA</a>
+
+                <div>
+                    <ul class="collapse" id="dsa">
+                        <li class="list-group-item"> <button
+                                class="btn btn-outline-info px-3 mx-3 my-1  py-1">hell5</button> </li>
+                        <li class="list-group-item"> <button
+                                class="btn btn-outline-info px-3 mx-3 my-1  py-1">hell5</button> </li>
+                        <li class="list-group-item"> <button
+                                class="btn btn-outline-info px-3 mx-3 my-1  py-1">hell5</button> </li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+
+            <!-- main content for the  -->
+            <div class="col-sm-8 content m-3">
+                <!-- Engineering Section blah blah content -->
+                <div class="about_eng" ng-init="about_eng=false" ng-hide="about_eng">
+                    <div id="header" class="row">
+                        <h1><em>Engineering</em></h1>
+                    </div>
+                    <div id="inner-content">
+                        <p>Engineering is the field of study and application of scientific, mathematical, and technical
+                            principles to design, develop, test, and
+                            improve products, systems, and processes. Engineers use their knowledge to create solutions
+                            to practical problems and to improve existing technologies.
+                            Engineering is a broad field that encompasses various disciplines and includes,
+                            </h3>
+                        <ul>
+                            <li>Mechanical Engineering</li>
+                            <li>Electrical Engineering</li>
+                            <li>Civil Engineering</li>
+                            <li>Aerospace Engineering</li>
+                            <li>Chemical Engineering</li>
+                            <li>Computer Engineering<br>and many more.</li>
+                        </ul>
+                        <p>
+                            Each discipline focuses on specific areas of expertise and uses different tools, methods,
+                            and techniques to solve problems and develop new products.
+                            Engineers work in a variety of settings, including research and development laboratories,
+                            manufacturing facilities, government agencies, and consulting firms. They often collaborate
+                            with other professionals, such as scientists, technicians, and managers, to bring their
+                            ideas to fruition and ensure the success of their projects.</p>
+                        <br><br>
+                        <h3>Advantages of opting for engineering in current times: </h3> <br>
+
+                        <ol type="I">
+
+                            <li>High demand: Engineering is a field that is always in high demand due to its diverse
+                                applications and contributions to various industries such as technology,
+                                manufacturing, construction, transportation, and healthcare.</li>
+                            <li>Career prospects: Engineering provides a wide range of career opportunities with a high
+                                earning potential. Graduates can work in various fields, including research and
+                                development, design, construction, management, and consulting.</li>
+                            <li>
+                                Innovation: Engineers are at the forefront of innovation, developing new products,
+                                processes, and technologies that can revolutionize industries and improve people's
+                                lives.
+                            </li>
+                            <li>Transferable skills: Engineering education provides students with transferable skills
+                                such as problem-solving, critical thinking, analytical skills, and technical knowledge
+                                that can be applied to various fields.</li>
+                            <li>Global opportunities: Engineering is a global field that offers opportunities for
+                                international travel and work. Many multinational companies offer opportunities for
+                                engineers to work on global projects and collaborate with colleagues from different
+                                countries.</li>
+                            <li>Social impact: Engineers have the opportunity to make a positive impact on society by
+                                developing solutions to challenges such as climate change, energy sustainability, and
+                                healthcare.</li>
+
+                        </ol>
+
+                        <p>Overall, opting for engineering in current times offers excellent opportunities for personal
+                            and professional growth, as well as making a positive impact on society, but there are also
+                            some disadvantages.</p>
+                        <br> <br>
+
+                        <h3>Disdvantages: </h3> <br>
+
+                        <ol type="I">
+
+                            <li>Rigorous coursework: Engineering programs are known for their challenging and rigorous
+                                coursework, which can be difficult and time-consuming.</li>
+                            <li>Limited flexibility: Engineering programs often have a fixed curriculum, leaving little
+                                room for students to explore other fields or take electives outside of their major..
+                            </li>
+                            <li>
+                                High competition: Engineering fields can be highly competitive, with many qualified
+                                candidates competing for limited job openings.
+                            </li>
+                            <li>Rapidly changing technology: The fast pace of technological advancements in engineering
+                                can make it challenging for professionals to keep up with new developments and stay
+                                relevant in their field.</li>
+                            <li>Risk of outsourcing: With the increasing globalization of the workforce, there is a risk
+                                that some engineering jobs may be outsourced to other countries with lower labor costs.
+                            </li>
+                            <li>Work pressure: Engineers are often under high pressure to meet tight deadlines, work
+                                long hours, and deliver high-quality results.</li>
+
+
+                        </ol>
+
+
+                        <p>It's essential to carefully consider both the advantages and disadvantages of opting for
+                            engineering in current times and weigh them against your personal strengths and interests to
+                            determine if engineering is the right field for you.</p>
+
+                    </div>
+                </div>
+
+                <!-- physics -->
+                <div class="physics kinematics" ng-init="phy1=true" ng-hide="phy1">
+                    <h1> Kinematics</h1>
+                    <p>
+                    <p>Kinematics is a branch of classical mechanics that deals with the description of motion without
+                        considering the forces that cause the motion. It is concerned with the study of the motion of
+                        objects and the mathematical description of their motion in terms of displacement, velocity,
+                        acceleration, time, and distance.
+
+                        In kinematics, we focus on the position of an object, its velocity (how fast it is moving) and
+                        its acceleration (how quickly it is changing its velocity). We can use mathematical equations
+                        and graphs to analyze and describe the motion of an object in one, two or three dimensions.
+                        Kinematics forms the foundation for the study of other branches of physics, such as dynamics,
+                        which deals with the forces that cause motion.
+
+                        <br><br>
+                        <hr>
+                    <h3>Link of Free Course of Kinematics:
+                    </h3>
+
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/XIJAZM5G5Fg"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                    </p>
+
+                    <p>
+                    <h3> Guidlines to study Kinematics Chapter: </h3>
+                    <ol type="1">
+                        <li>
+                            Understand the key concepts: Before delving into the mathematical equations and formulas,
+                            make sure you have a good understanding of the key concepts such as distance, displacement,
+                            speed, velocity, acceleration, and time. Take your time to read the definitions and try to
+                            understand the meaning of each concept.
+                        </li>
+                        <li>Practice solving problems: Kinematics is a very mathematical subject, and the best way to
+                            understand it is to practice solving problems. Look for practice problems in your textbook
+                            or online, and make sure you understand the steps involved in solving them.</li>
+                        <li>Use diagrams and graphs: Kinematics often involves the use of diagrams and graphs to
+                            represent motion. Make sure you can read and interpret these diagrams and graphs, and use
+                            them to help you understand the motion of an object.</li>
+                        <li>Understand the different types of motion: Kinematics deals with different types of motion,
+                            such as uniform motion, uniformly accelerated motion, and projectile motion. Make sure you
+                            understand the characteristics of each type of motion, and how to apply the relevant
+                            equations and formulas to solve problems.</li>
+                        <li>Review units and dimensions: Kinematics involves the use of units and dimensions to express
+                            physical quantities. Make sure you understand the SI units of measurement and how to convert
+                            between different units.</li>
+                        <li>Work on your math skills: Kinematics involves a lot of algebra and calculus, so make sure
+                            your math skills are up to par. Review basic algebraic principles, such as solving equations
+                            and working with variables, and practice using calculus to solve problems involving motion.
+                        </li>
+                        <li>Seek help when needed: If you find yourself struggling with a particular concept or problem,
+                            don't hesitate to seek help from your teacher, classmates, or tutor. Kinematics can be a
+                            challenging subject, but with the right support, you can master it.</li>
+
+                    </ol>
+
+
+
+
+
+                    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+                <div class="physics rbd" ng-init="phy2='true'" ng-hide="phy2">
+                    <h1> Rotational Dynamics</h1>
+                    <p>Rotational Dynamics is a branch of classical mechanics that deals with the motion of objects that
+                        rotate around a fixed axis or point. It involves the study of forces and torques that cause
+                        rotational motion, as well as the resulting motion of these objects.
+
+                        Key concepts in rotational dynamics include angular velocity, angular acceleration, angular
+                        momentum, and moments of inertia. The behavior of rotating systems can be described using
+                        mathematical equations and models, which are used to predict and analyze their motion.</p>
+                    <br>
+                    <hr>
+                    <h3> Link of free courses for Rotational Dynamics:</h3><br>
+
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/vSJ66ADJd2o"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe>
+                    <h3> Guidlines to study the chapter Rotaitonal Dynamics: </h3><br>
+                    <ol type="1">
+                        <li>Understand the key concepts: Before delving into the mathematical equations and formulas,
+                            make sure you have a good understanding of the key concepts such as torque, angular
+                            velocity, angular acceleration, angular momentum, and moment of inertia. Take your time to
+                            read the definitions and try to understand the meaning of each concept.</li>
+                        <li>Practice solving problems: Rotational Dynamics is a very mathematical subject, and the best
+                            way to understand it is to practice solving problems. Look for practice problems in your
+                            textbook or online, and make sure you understand the steps involved in solving them.</li>
+                        <li> Use diagrams and graphs: Rotational Dynamics often involves the use of diagrams and graphs
+                            to represent motion. Make sure you can read and interpret these diagrams and graphs, and use
+                            them to help you understand the motion of a rotating object.</li>
+                        <li>Understand the different types of motion: Rotational Dynamics deals with different types of
+                            motion, such as rotational motion, rolling motion, and combined translational and rotational
+                            motion. Make sure you understand the characteristics of each type of motion, and how to
+                            apply the relevant equations and formulas to solve problems.</li>
+                        <li>Review units and dimensions: Rotational Dynamics involves the use of units and dimensions to
+                            express physical quantities. Make sure you understand the SI units of measurement and how to
+                            convert between different units.</li>
+
+
+                    </ol>
+
+
+
+                </div>
+
+                <div class="physics friction" ng-init="phy3 = 'true'" ng-hide="phy3">
+                    <h1>Friction</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam exercitationem accusantium
+                        culpa cupiditate, cumque esse dolorem at doloribus dolorum itaque. Eius non cupiditate facere ab
+                        possimus. Facilis quibusdam tenetur facere quidem explicabo neque, sit illo magni, omnis
+                        pariatur velit unde asperiores? Mollitia repellendus iusto, sequi in soluta repellat reiciendis
+                        nulla.</p>
+                </div>
+
+
+                <!-- maths topics -->
+                <div class="maths kinematics" ng-init="maths1=true" ng-hide="maths1">
+                    <h1>Kinematics</h1>
+
+                </div>
+
+                <div class="maths rbd" ng-init="maths2='true'" ng-hide="maths2">
+                    <h1>Rotational Dynamics</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam exercitationem accusantium
+                        culpa cupiditate, cumque esse dolorem at doloribus dolorum itaque. Eius non cupiditate facere ab
+                        possimus. Facilis quibusdam tenetur facere quidem explicabo neque, sit illo magni, omnis
+                        pariatur velit unde asperiores? Mollitia repellendus iusto, sequi in soluta repellat reiciendis
+                        nulla.</p>
+                </div>
+
+                <div class="maths friction" ng-init="maths3 = 'true'" ng-hide="maths3">
+                    <h1>Friction</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam exercitationem accusantium
+                        culpa cupiditate, cumque esse dolorem at doloribus dolorum itaque. Eius non cupiditate facere ab
+                        possimus. Facilis quibusdam tenetur facere quidem explicabo neque, sit illo magni, omnis
+                        pariatur velit unde asperiores? Mollitia repellendus iusto, sequi in soluta repellat reiciendis
+                        nulla.</p>
+                </div>
+
+
+                <!-- cpp topics 3 -->
+
+
+
+
+
+
+                <!-- java -->
+
+
+
+
+
+            </div>
+
+            <div class="footer">
+
+            </div>
+
+        </div>
+    </div>
+        <script>
+            var app = angular.module('eng_app', []);
+            app.controller('eng_controller', function ($scope) {
+
+
+                $scope.change_phy = function (sub) {
+                    console.log("about_eng" + $scope.about_eng);
+
+
+                    $scope.about_eng = true;
+                    switch (sub) {
+                        case 'phy1':
+                            console.log("Entered phy1");
+                            $scope.phy1 = false;
+                            $scope.phy2 = true;
+                            $scope.phy3 = true;
+                            break;
+                        case 'phy2':
+                            $scope.phy2 = false;
+                            $scope.phy3 = true;
+                            $scope.phy1 = true;
+                            break;
+                        case 'phy3':
+                            $scope.phy3 = false;
+                            $scope.phy2 = true;
+                            $scope.phy1 = true;
+                            break;
+
+
+                        default:
+                            $scope.phy3 = true;
+                            $scope.phy2 = true;
+                            $scope.phy1 = true;
+                            break;
+                    }
+
+
+                };
+
+                $scope.change_maths = function (sub) {
+                    $scope.about_eng = true;
+                    switch (sub) {
+                        case 'maths1':
+                            console.log("ENtered phy1");
+                            $scope.maths1 = false;
+                            $scope.maths2 = true;
+                            $scope.maths3 = true;
+                            break;
+                        case 'maths2':
+                            $scope.maths2 = false;
+                            $scope.maths3 = true;
+                            $scope.maths1 = true;
+                            break;
+                        case 'maths3':
+                            $scope.maths3 = false;
+                            $scope.maths2 = true;
+                            $scope.maths1 = true;
+                            break;
+
+
+                        default:
+                            $scope.maths3 = true;
+                            $scope.maths2 = true;
+                            $scope.maths1 = true;
+                            break;
+                    }
+                }
+
+                $scope.change_cpp = function (sub) {
+                    $scope.about_eng = true;
+                    switch (sub) {
+                        case 'cpp1':
+                            console.log("ENtered phy1");
+                            $scope.cpp1 = false;
+                            $scope.cpp2 = true;
+                            $scope.cpp3 = true;
+                            break;
+                        case 'cpp2':
+                            $scope.cpp2 = false;
+                            $scope.cpp3 = true;
+                            $scope.cpp1 = true;
+                            break;
+                        case 'cpp3':
+                            $scope.cpp3 = false;
+                            $scope.cpp2 = true;
+                            $scope.cpp1 = true;
+                            break;
+
+
+                        default:
+                            $scope.cpp3 = true;
+                            $scope.cpp2 = true;
+                            $scope.cpp1 = true;
+                            break;
+                    }
+                }
+
+                $scope.change_to_main = function (branch) {
+                    $scope.change_phy('wrong_para');
+                    $scope.change_maths('wrong_param');
+                    $scope.change_cpp('wrong_param');
+                    $scope.about_eng = false;
+                }
+
+
+                
+
+            });
+        </script>
+</body>
+
+</html>
